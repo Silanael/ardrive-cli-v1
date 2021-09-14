@@ -41,7 +41,7 @@ It is sufficient to mount an empty directory to /data - the missing directories 
 ## First run
 To initialize arweave-cli, you will need to provide the following things:
 ### An Arweave-wallet - do one of the following
-- Provide an existing one by placing it into your local workdir/data/wallets -directory and providing `/data/wallets` when asked for **Wallet Path**.
+- Provide an existing one by placing it into your local workdir/data/wallets -directory and providing `/data/wallets/yourwallet.json` when asked for **Wallet Path**.
 - Create one with a CLI and provide `/data/wallets` when asked for **ArDrive Wallet Backup Folder Path** 
 
 **WARNING! If the CLI is used to create a wallet, EXTREME CARE must be taken to save it to mounted persistent storage - saving it into the container filesystem instead of a volume or a bind-mount may lead to LOSING THE WALLET FILE once the container stops, resulting in loss of control of the newly-created Arweave-address along with ALL FUNDS IN IT!**
