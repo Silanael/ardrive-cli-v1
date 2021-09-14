@@ -79,6 +79,7 @@ NOTE: In order to run as a non-root user, Docker-privileges may be needed to be 
 #### Build
 - `./build.sh`
 ##### If you have a wallet .json
+- `mkdir -p data/wallets`
 - `cp wallet.json data/wallets/`
 #### Run
 - `./run.sh`
