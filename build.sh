@@ -4,7 +4,7 @@
 # Silanael 2021-09-14_02
 #
 
-imagename="ardrive-cli-v1:latest"
+imagename="silanael/ardrive-cli-v1:latest"
 
 
 echo "Building $imagename..."

@@ -5,7 +5,7 @@
 #
 
 # Settings
-imagename="ardrive-cli-v1:latest"
+imagename="silanael/ardrive-cli-v1:latest"
 datadir="$(pwd)/data"
 function="cli"
 
