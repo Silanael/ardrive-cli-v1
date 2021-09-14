@@ -1,0 +1,39 @@
+The container uses the following mount locations:
+
+/data/db        where .ardrive-cli.db is created at (holds wallet and state)
+/data/sync      to act as a sync directory for uploads and downloads.
+/data/wallets   to allow the CLI to access and save wallet files
+
+It is sufficient to mount an empty directory to /data - these scripts will
+create the missing directories upon container start.
+
+********************************************************************************
+*     It is recommended to create an Arweave-wallet with an external tool      *
+*        and copy it to data/wallets prior to starting the container.          *
+********************************************************************************
+
+The CLI can be used to create a wallet, but care must be taken to save it to
+mounted persistent storage - saving it inside the container may lead to
+LOSING THE WALLET FILE once the container stops, resulting in loss of control
+of the newly-created Arweave-address along with ALL FUNDS IN IT!
+
+After ardrive-cli has been initialized, the wallet file should be moved away as
+it is then saved to the internal database (located in /data/db) in encrypted
+form. Wallet .json -files are NOT encrypted so they should be kept safe.
+
+/data/db and /data/sync should always be mounted on permanent storage
+in order to upload files and have the state of the container persist.
+
+
+TO GET STARTED:
+
+    # Prepare
+    mkdir $(pwd)/data
+    
+    # If you have a wallet
+    mkdir $(pwd)/data/wallets
+    cp <wallet.json> $(pwd)/data/wallets
+
+    # Run the container
+    docker run -it -v $(pwd)/data:/data <image>
+

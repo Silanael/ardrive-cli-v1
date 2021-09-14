@@ -1,0 +1,169 @@
+##################################
+# ARDRIVE CLI V1 - DOCKER IMAGE  #
+# -----------------------------  #
+# Version: 2021-09-13_01         #
+# Author:  Silanael              #
+##################################
+
+
+
+########
+# URLS # 
+########
+
+   ArDrive:          https://ardrive.io
+   ArDrive GitHub:   https://github.com/ardriveapp
+
+   ArWeave:          https://arweave.org
+   Arweave GitHub:   https://github.com/ArweaveTeam
+  
+   Silanael:         http://silanael.com
+   Silanael GitHub:  https://github.com/Silanael
+
+   Chrome Arweave 
+   Extension:        https://chrome.google.com/webstore/detail/arweave/iplppiggblloelhoglpmkmbinggcaaoc
+
+
+
+
+##############
+# DISCLAIMER #
+##############
+
+    "ardrive-cli" is created, maintained and owned by ArDrive.
+
+    --- THIS IS NOT AN OFFICIAL IMAGE ---
+    Loss of data and money is possible in many ways, including but not limited to
+    bugs in ardrive-cli and/or this image as well as user stupidity/mistakes.
+
+    Use at your own risk.
+
+
+
+###############
+# QUICK START #    
+###############
+
+    mkdir $(pwd)/data
+
+    # If you have an Arweave-wallet JSON file:
+    mkdir $(pwd)/data/wallets
+    cp <wallet.json> $(pwd)/data/wallets
+
+    docker run -it -v $(pwd)/data:/data <imagename>
+
+
+
+
+###############
+# DESCRIPTION #
+###############
+
+    "ardrive-cli" is a tool that can be used to interact with ArFS, a filesystem built on top of the Arweave permaweb
+    that allows the creation of public and private virtual drives capable of storing files permanently.
+
+    A wallet file is required to interact with the blockweave - one can either be supplied manually or
+    generated via ardrive-cli. Uploading files requires and consumes Arweave's native cryptocurrency, AR.
+
+    **********************************************************************************************************
+    *** WARNING - GENERATING THE WALLET IN THE CONTAINER MAY LEAD TO PERMANENT LOSS OF ACCESS TO YOUR DATA ***
+    **********************************************************************************************************
+    Only do this if you're absolutely sure you know what you're doing.
+    
+    The preferred method of creating a wallet is either via tools found from https://github.com/ArweaveTeam/arweave
+    or with a browser extensions such as https://chrome.google.com/webstore/detail/arweave/iplppiggblloelhoglpmkmbinggcaaoc
+
+    The login and password combined with the Arweave-wallet are used to derive an encryption key for private drives.
+    No actual user accounts exist within ArDrive at the writing of this.
+
+
+
+
+#####################
+# IMAGE INFORMATION #
+#####################
+
+    This docker image is based on the official node.js images (node:latest and node:slim) which are
+    Debian-based at the moment of writing this.
+
+    A builder image was used to build arweave-cli, which was then transferred to the slimmer base image
+    as an effort to make the image smaller. 
+  
+    It currently pulls the latest master commit of https://github.com/ardriveapp/ardrive-cli, which means
+    that the Dockerfile will almost certainly stop working after the v2 client is released. 
+
+    This image exists mostly for historic preservation, at the advent of a new and improved v2-client.
+    Though I will likely create a new image of the new version as well.
+
+
+
+#########
+# USAGE #
+#########
+
+    docker run -it [--rm] -v [DATADIR]:/data <image> [FUNCTION]
+    docker run -it [--rm] -v [DBDIR]:/data/db -v [SYNCDIR]:/data/sync -v [WALLETDIR]:/data/wallets <image>
+    docker run -it [--rm] -v <image> [help/info]
+    docker run -it [--rm] -v [DATADIR]:/data <image> [cli/nocheck/shell/resetdb]
+
+
+    FUNCTIONS:
+
+        cli       Run the ArDrive CLI. This is the default function.
+        nochecks  Run the ArDrive CLI without safety checks. For advanced users only.
+        resetdb   Delete the .ardrive-cli.db database file to start fresh.
+        shell     Enter container shell
+        help      Display this help.
+        info      Display more detailed information.
+
+
+    The container uses the following mount locations:
+
+        /data/db        where .ardrive-cli.db is created at (holds wallet and state)
+        /data/sync      to act as a sync directory for uploads and downloads.
+        /data/wallets   to allow the CLI to access and save wallet files
+
+     It is sufficient to mount an empty directory to /data - these scripts will
+     create the missing directories upon container start.
+
+
+********************************************************************************
+*     It is recommended to create an Arweave-wallet with an external tool      *
+*        and copy it to data/wallets prior to starting the container.          *
+********************************************************************************
+
+    The CLI can be used to create a wallet, but care must be taken to save it to
+    mounted persistent storage - saving it inside the container may lead to
+    LOSING THE WALLET FILE once the container stops, resulting in loss of control
+    of the newly-created Arweave-address along with ALL FUNDS IN IT!
+
+    After ardrive-cli has been initialized, the wallet file should be moved away as
+    it is then saved to the internal database (located in /data/db) in encrypted
+    form. Wallet .json -files are NOT encrypted so they should be kept safe.
+
+    /data/db and /data/sync should always be mounted on permanent storage
+    in order to upload files and have the state of the container persist.
+
+
+    TO GET STARTED:
+
+        # Prepare
+        mkdir $(pwd)/data
+
+        # If you have a wallet
+        mkdir $(pwd)/data/wallets
+        cp <wallet.json> $(pwd)/data/wallets
+
+        # Run the container
+        docker run -it -v $(pwd)/data:/data <image>
+
+
+    To upload files, create a virtual drive with the CLI, then add the files into the corresponding
+    drive directory located in the local sync dir, ie. "./data/sync/TestDrive2/".
+    This can be done while ardrive-cli is running.
+
+
+    *** THIS DOCKER IMAGE IS STILL A WORK IN PROGRESS ***
+    Feedback appreciated.
+
+    - Silanael 2021-09-14_01

@@ -1,0 +1,15 @@
+USAGE:
+
+    docker -it [--rm] -v [DATADIR]:/data <IMAGE> [FUNCTION]"
+    docker -it [--rm] -v [DBDIR]:/data/db -v [SYNCDIR]:/data/sync -v [WALLETDIR]:/data/wallets <IMAGE> [FUNCTION]"
+
+
+FUNCTIONS:
+
+    cli       Run the ArDrive CLI. This is the default function.
+    nochecks  Run the ArDrive CLI without safety checks. For advanced users only.
+    resetdb   Delete the .ardrive-cli.db database file to start fresh.
+    shell     Enter container shell
+    help      Display this help.
+    info      Display more detailed information.
+
