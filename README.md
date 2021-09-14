@@ -2,9 +2,9 @@
 Dockerfile and support scripts by Silanael, ardrive-cli by the ArDrive team
 
 
-## Important notice
+## Important notice and disclaimer
 This Dockerfile has mostly been created for the sake of historic preservation at the advent of more capable and (hopefully) bug-free v2 CLI.
-Though it is fully functional, **production use is not recommended**. Using it to store files comes with some risks, so, carefully read this document through before proceeding. Also, ardrive-cli may be buggy and result in monetary loss, nor can I guarantee my work to be free of bugs either. I take no responsibility for damages caused by the use of this image or any of the files associated with it - **use at your own risk**
+Though it is fully functional, **production use is not recommended**. Using it to store files comes with some risks, so, carefully read this document through before proceeding. ardrive-cli may be buggy and result in monetary loss, nor can I guarantee my work to be free of bugs either. I take no responsibility for damages caused by the use of this image or any of the files associated with it - **use at your own risk**
 
 
 ## What is this thing?
@@ -41,21 +41,21 @@ It is sufficient to mount an empty directory to /data - the missing directories 
 ## First run
 To initialize arweave-cli, you will need to provide the following things:
 ### An Arweave-wallet - do one of the following
-- Provide an existing one by placing it into your local workdir/data/wallets -directory and providing '/data/wallets' when asked for **Wallet Path**.
-- Create one with a CLI and provide '/data/wallets' when asked for **ArDrive Wallet Backup Folder Path** 
+- Provide an existing one by placing it into your local workdir/data/wallets -directory and providing `/data/wallets` when asked for **Wallet Path**.
+- Create one with a CLI and provide `/data/wallets` when asked for **ArDrive Wallet Backup Folder Path** 
 
 **WARNING! If the CLI is used to create a wallet, EXTREME CARE must be taken to save it to mounted persistent storage - saving it into the container filesystem instead of a volume or a bind-mount may lead to LOSING THE WALLET FILE once the container stops, resulting in loss of control of the newly-created Arweave-address along with ALL FUNDS IN IT!**
-A safer alternative is to create a wallet externally (see 'What is arweave-cli').
+> A safer alternative is to create a wallet externally (see 'What is arweave-cli').
 
 ### A sync directory
-- Provide '/data/sync' when asked for **ArDrive Sync Folder Path**
+- Provide `/data/sync` when asked for **ArDrive Sync Folder Path**
 
 ### After the first run
 After ardrive-cli has been initialized, the wallet file should be moved away as it is then saved to the internal database (located in /data/db) in encrypted form. **Wallet .json -files are NOT encrypted** so they should be kept safe.
 
 /data/db and /data/sync should always be mounted on permanent storage in order to upload files, and have the state of the container persist.
 
-Run `docker run -it --rm help` or `./run.sh --help` for more information.
+Run `docker run -it --rm silanael/ardrive-cli-v1 help` or `./run.sh --help` for more information.
 
 
 ## Known issues
@@ -73,7 +73,7 @@ NOTE: In order to run as a non-root user, Docker-privileges may be needed to be 
 ##### If you have a wallet .json
 - `cp wallet.json data/wallets/`
 #### Run
-- `./run.sh
+- `./run.sh`
 #### Run with custom directories and features
 See `./run.sh --help` for information
 
@@ -83,16 +83,18 @@ See `./run.sh --help` for information
 - `docker build -t silanael/ardrive-cli-v1:latest .`
 #### Prepare
 - `mkdir data`
-#### If you have a wallet
+#### If you have a wallet file
 - `mkdir data/wallets`
 - `cp wallet.json data/wallets/`
 #### Run
-- `docker run -it -v $(pwd)/data:/data silanael/ardrive-cli-v1:latest
+- `docker run -it -v $(pwd)/data:/data silanael/ardrive-cli-v1:latest`
 #### Info on additional features
-- `docker run -it --rm silanael/ardrive-cli-v1:latest help
+- `docker run -it --rm silanael/ardrive-cli-v1:latest help`
 #### Command structure
 - `docker run -it [--rm] -v [DATADIR]:/data <image> [FUNCTION]`
 - `docker run -it [--rm] -v [DBDIR]:/data/db -v [SYNCDIR]:/data/sync -v [WALLETDIR]:/data/wallets <image>`
 - `docker run -it [--rm] -v <image> [help/info]`
 - `docker run -it [--rm] -v [DATADIR]:/data <image> [cli/nocheck/shell/resetdb]`
 
+### Post-run
+- It is recommended to move your wallet.json -files away from data/wallets. Store them in a safe location where they won't be lost or compromised.
