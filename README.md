@@ -50,6 +50,14 @@ To initialize arweave-cli, you will need to provide the following things:
 ### A sync directory
 - Provide `/data/sync` when asked for **ArDrive Sync Folder Path**
 
+### Create a drive if you haven't got one already
+- Public drives are **forever accessible to everyone**
+- Private drives are encrypted, the key derived from your wallet address combined with the username and password. Refer to ArDrive-documentation for further info.
+
+### When ardrive-cli has been initialized
+- You can now start adding files to your newly-created drive by placing them into the host sync folder (`workdir/data/sync` by default).
+- ardrive-cli will run in a loop, eventually picking up the new files and asking you for a confirmation for upload, along with displaying the upload cost.
+
 ### After the first run
 After ardrive-cli has been initialized, the wallet file should be moved away as it is then saved to the internal database (located in /data/db) in encrypted form. **Wallet .json -files are NOT encrypted** so they should be kept safe.
 
