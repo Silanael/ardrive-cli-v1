@@ -4,8 +4,8 @@
 
 
 ## Pre-built images at
-- [DockerHub](https://hub.docker.com/repository/docker/silanael/ardrive-cli-v1) (x86-64, ARMv7 / RPI2)
-- [ArDrive](https://app.ardrive.io/#/drives/a44482fd-592e-45fa-a08a-e526c31b87f1?name=Silanael) - [x86-64](https://app.ardrive.io/#/file/24d2bc79-60e2-42e8-aaec-c74d2d4b4813/view) [ARMv7](https://app.ardrive.io/#/file/d59e8f78-f589-4be5-b5dc-984420b8bc27/view)
+- [DockerHub](https://hub.docker.com/repository/docker/silanael/ardrive-cli-v1) (x86-64, ARMv7/RPI2)
+- [ArDrive](https://app.ardrive.io/#/drives/a44482fd-592e-45fa-a08a-e526c31b87f1?name=Silanael) - [x86-64](https://app.ardrive.io/#/file/24d2bc79-60e2-42e8-aaec-c74d2d4b4813/view), [ARMv7](https://app.ardrive.io/#/file/d59e8f78-f589-4be5-b5dc-984420b8bc27/view)
 - [Arweave - x86-64](https://arweave.net/J3DuBTV9GtTIeWSz28oJoaHt33LTgCCMQ1pBpyNYyso) (tar.gz, TXID: J3DuBTV9GtTIeWSz28oJoaHt33LTgCCMQ1pBpyNYyso)
 - [Arweave - ARMv7](https://arweave.net/aOrafXYWf1DBZ-Quf_NzHJlvN4yTStSykkvlvOXC7nw) (tar.gz, TXID: aOrafXYWf1DBZ-Quf_NzHJlvN4yTStSykkvlvOXC7nw)
 
