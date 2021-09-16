@@ -1,13 +1,13 @@
-# ardrive-cli-v1 dockerfile (2021-09-14_01)
+# ArDrive CLI v1 Dockerfile
 - Dockerfile, shell scripts and documentation by [Silanael](http://www.silanael.com)
 - [ardrive-cli](https://github.com/ardriveapp/ardrive-cli) by the [ArDrive team](https://ardrive.io)
 
 
 ## Pre-built images at
 - [DockerHub](https://hub.docker.com/repository/docker/silanael/ardrive-cli-v1) (x86-64, ARMv7 / RPI2)
-- [ArDrive](https://app.ardrive.io/#/file/24d2bc79-60e2-42e8-aaec-c74d2d4b4813/view) (x86-64)
-- [Arweave](https://arweave.net/J3DuBTV9GtTIeWSz28oJoaHt33LTgCCMQ1pBpyNYyso) (x86-64, .tar.gz, TXID: J3DuBTV9GtTIeWSz28oJoaHt33LTgCCMQ1pBpyNYyso)
-
+- [ArDrive](https://app.ardrive.io/#/drives/a44482fd-592e-45fa-a08a-e526c31b87f1?name=Silanael) - [x86-64](https://app.ardrive.io/#/file/24d2bc79-60e2-42e8-aaec-c74d2d4b4813/view) [ARMv7](https://app.ardrive.io/#/file/d59e8f78-f589-4be5-b5dc-984420b8bc27/view)
+- [Arweave - x86-64](https://arweave.net/J3DuBTV9GtTIeWSz28oJoaHt33LTgCCMQ1pBpyNYyso) (tar.gz, TXID: J3DuBTV9GtTIeWSz28oJoaHt33LTgCCMQ1pBpyNYyso)
+- [Arweave - ARMv7](https://arweave.net/aOrafXYWf1DBZ-Quf_NzHJlvN4yTStSykkvlvOXC7nw) (tar.gz, TXID: aOrafXYWf1DBZ-Quf_NzHJlvN4yTStSykkvlvOXC7nw)
 
 ## An important notice and disclaimer
 This Dockerfile has mostly been created for the sake of historic preservation at the advent of more capable and (hopefully) bug-free **v2 CLI**.
@@ -167,12 +167,12 @@ Run `docker cp ID:PATH/ArDrive_Backup_NAME.json .` with the following substituti
 An example command:
 - `docker cp be3f7474a1d3:/ardrive-cli/ArDrive_Backup_Silanael.json .`
 A successful copy operation gives no message.
-Verify that the **wallet file** (.json) is present in your local filesystem.
+Verify that the **wallet file** (.json) is present in your **local filesystem**.
 
 ### To locate the wallet file in the container
 - `sudo docker exec ID find / -type f -name "ArDrive_Backup_*.json"`
 
 ### If all this fails
-It might be possible to extract the wallet data from the `.ardrive-cli.db` database file (contact [ArDrive team](https://ardrive.io)).
+It might be possible to extract the wallet data from the **.ardrive-cli.db** database file (contact [ArDrive team](https://ardrive.io)).
 If no database file can be recovered, the odds are that the wallet is lost for good.
 Tough luck. I did warn you.
