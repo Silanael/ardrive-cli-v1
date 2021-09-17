@@ -1,5 +1,5 @@
 # ArDrive CLI v1 docker image 
-# 2021-09-14_01          
+# 2021-09-17_01          
 #
 #     
 #     THIS IS A PRESERVATION IMAGE!
@@ -76,8 +76,7 @@ RUN yarn
 
 FROM node:slim
 
-LABEL version="2021-09-14_01"                                            \
-      description="ArDrive CLI v1 + support scripts"                     \
+LABEL description="ArDrive CLI v1 + support scripts"                     \
       author="Silanael"                                                  \
       com.silanael.usage="docker run -it -v datadir:/data <image>"       \
       com.silanael.info="docker run -it --rm <image> [help/info]"        \
@@ -85,11 +84,12 @@ LABEL version="2021-09-14_01"                                            \
       com.silanael.e-mail="sila@silanael.com"                            \
       com.silanael.arweave="zPZe0p1Or5Kc0d7YhpT5kBC-JUPcDzUPJeMz2FdFiy4" \
       com.silanael.createdwith="nano"                                    \
-      com.silanael.sys="Potato-01 MK3"                                   
+      com.silanael.sys="Potato-01 MK3"                                   \                                
+      com.silanael.version="2021-09-17_01"
 
 
-
-RUN apt-get update && apt-get upgrade
+# Update the packages
+RUN apt-get update && apt-get upgrade && apt autoremove -y && apt-get clean
 
 
 # Copy the built app and other files needed by the image
