@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # ArDrive Docker image - func.sh
-# Silanael 2021-09-13_01
+# Silanael 2021-09-19_01
 #
 # Some helper-functions.
 #
@@ -15,8 +15,13 @@ LaunchCLI () {
     echo "Launching ardrive-cli... (CTRL+C to exit)"
     echo ""
 
-    cd /ardrive-cli
-    yarn start
+    # Try to run the binary,
+    # fallback to yarn start otherwise.
+    if [ "$binfile" == "" ] || ! $binfile
+    then             
+        cd /ardrive-cli
+        yarn start
+    fi    
 }
 
 

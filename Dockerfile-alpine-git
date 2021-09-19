@@ -61,13 +61,19 @@ LABEL description="ArDrive CLI v1"                                       \
 
 
 # Update the packages and install dependencies
-RUN apk update && apk upgrade && apk add python3
+RUN apk update && apk add make gcc g++ musl-dev python3 git bash
+
+#RUN apt-get update && apt-get upgrade && apt autoremove -y && apt-get clean
 
 
 # Install ardrive-cli
+RUN git clone https://github.com/ardriveapp/ardrive-cli
 WORKDIR /ardrive-cli
-RUN npm install ardrive-cli
+#RUN yarn
 
+
+# Cleanup
+#RUN yarn cache clean --all
 
 
 # Use this is the other command fails
@@ -75,4 +81,4 @@ RUN npm install ardrive-cli
 
 
 # This produces less text clutter
-CMD ["/ardrive-cli/node_modules/.bin/ardrive-cli"]
+#CMD ["/ardrive-cli/node_modules/.bin/ardrive-cli"]

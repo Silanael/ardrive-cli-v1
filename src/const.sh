@@ -13,3 +13,5 @@ walletdir="$datadir/wallets"
 
 dbfile=".ardrive-cli.db"
 testfile=".notmounted"
+
+binfile="/ardrive-cli/node_modules/.bin/ardrive-cli"

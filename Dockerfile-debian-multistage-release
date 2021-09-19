@@ -51,12 +51,10 @@
 # Builder image #
 #################
 
-FROM node:current-alpine AS builder
+FROM node:latest AS builder
 LABEL description="ArDrive CLI builder image (can be removed)"
 
-# Update the packages and install dependencies
-RUN apk update && apk upgrade &&            \
-    apk add make gcc g++ musl-dev python3
+RUN apt-get update && apt-get upgrade
 
 # Dependencies are already present in the base image - should they not be, uncomment the following line:
 #RUN apt-get install -y make gcc python3 git
@@ -66,7 +64,6 @@ RUN apk update && apk upgrade &&            \
 
 WORKDIR /ardrive-cli
 RUN yarn add ardrive-cli
-RUN yarn cache clean --all
 
 #RUN yarn
 
@@ -79,7 +76,7 @@ RUN yarn cache clean --all
 # Application image #
 #####################
 
-FROM node:current-alpine
+FROM node:slim
 
 LABEL description="ArDrive CLI v1 + support scripts"                     \
       author="Silanael"                                                  \
@@ -93,9 +90,8 @@ LABEL description="ArDrive CLI v1 + support scripts"                     \
       com.silanael.version="2021-09-17_01"
 
 
-# Update the packages and install final dependencies
-RUN apk update && apk upgrade && \
-    apk add bash
+# Update the packages
+RUN apt-get update && apt-get upgrade && apt autoremove -y && apt-get clean
 
 
 # Copy the built app and other files needed by the image
