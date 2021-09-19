@@ -1,18 +1,28 @@
 # ArDrive CLI v1 docker image 
-# 2021-09-17_01          
-#
-#     
-#     THIS IS A PRESERVATION IMAGE!
-#     Though it is fully functional, production use is NOT recommended!
-#     Use the upcoming v2 CLI instead.
+# 2021-09-19_01          
 #
 #                                                                 
 #     ArDrive CLI                    by  ArDrive Team  (ardrive.io)       
 #     Dockerfile + support scripts   by  Silanael      (silanael.com)     
 #
-#     
+#
+#
+# *** VARIATIONS ***
+#
+#     Dockerfile        - Release version with safety/helper scripts.
+#     Dockerfile-plain  - Standalone release version. For those familiar with Docker and ardrive-cli.
+#     Dockerfile-dev    - Development version pulled from https://github.com/ardriveapp/ardrive-cli
+#
+#     - The release version images are optimized for size and speed and are based on node-alpine.     
+#     - The development image is single-stage and based on node-slim (Debian).
+#
+#
 #
 # *** WARNING ***
+#
+#     - THIS IS A PRESERVATION IMAGE!
+#       Though it is fully functional, production use is NOT recommended!
+#       Use the upcoming v2 CLI instead.
 #
 #     - Wallets created with the CLI can be lost if they're saved
 #       into the container instead of into volumes/bind mounts!
@@ -34,16 +44,10 @@
 #     - ardrive-cli throws an exception if it's given a wallet path
 #       that doesn't exist, yet it doesn't properly quit after this.
 #
-#
-#  *** FOR THE FUTURE ***
-#
-#      This Dockerfile pulls the latest commit from the ardrive-cli repo,
-#      which is the v1 CLI at the writing of this. When v2 is released,
-#      this thing probably breaks - it should be fixable by pointing
-#      the git clone-command to the v1-branch (that does not yet exist)
-#      in case I forget to / don't feel like fixing it.              
-#
-#
+#     - The image launches the CLI by running /ardrive-cli/node_modules/.bin/ardrive-cli -
+#       if this at some point stops working, an alternative launch command is:
+#           yarn run ardrive-cli
+
 
 
 
@@ -54,21 +58,17 @@
 FROM node:current-alpine AS builder
 LABEL description="ArDrive CLI builder image (can be removed)"
 
-# Update the packages and install dependencies
+
+# Update the packages and install the build dependencies
 RUN apk update && apk upgrade &&            \
     apk add make gcc g++ musl-dev python3
 
-# Dependencies are already present in the base image - should they not be, uncomment the following line:
-#RUN apt-get install -y make gcc python3 git
 
-# Cloning only the latest commit - to get the full repository, remove "-- depth 1"
-#RUN git clone --depth 1 https://github.com/ardriveapp/ardrive-cli.git
-
+# Install ardrive-cli
 WORKDIR /ardrive-cli
 RUN yarn add ardrive-cli
 RUN yarn cache clean --all
 
-#RUN yarn
 
 
 
@@ -81,19 +81,22 @@ RUN yarn cache clean --all
 
 FROM node:current-alpine
 
-LABEL description="ArDrive CLI v1 + support scripts"                     \
-      author="Silanael"                                                  \
-      com.silanael.usage="docker run -it -v datadir:/data <image>"       \
-      com.silanael.info="docker run -it --rm <image> [help/info]"        \
-      com.silanael.url="silanael.com"                                    \
-      com.silanael.e-mail="sila@silanael.com"                            \
-      com.silanael.arweave="zPZe0p1Or5Kc0d7YhpT5kBC-JUPcDzUPJeMz2FdFiy4" \
-      com.silanael.createdwith="nano"                                    \
-      com.silanael.sys="Potato-01 MK3"                                   \                                
-      com.silanael.version="2021-09-17_01"
+LABEL description="ArDrive CLI v1 + support scripts"                        \
+      author="Silanael"                                                     \
+      com.silanael.usage="docker run -it -v datadir:/data <image>"          \
+      com.silanael.info="docker run -it --rm <image> [help/info]"           \
+      com.silanael.url="silanael.com"                                       \
+      com.silanael.e-mail="sila@silanael.com"                               \
+      com.silanael.arweave="zPZe0p1Or5Kc0d7YhpT5kBC-JUPcDzUPJeMz2FdFiy4"    \
+      com.silanael.createdwith="nano, VS Code"                              \
+      com.silanael.sys="Potato-01 MK3"                                      \
+      com.silanael.runcommand1="/ardrive-cli/node_modules/.bin/ardrive-cli" \
+      com.silanael.runcommand2="yarn run ardrive-cli"                       \      
+      com.silanael.version="2021-09-19_01"
 
 
-# Update the packages and install final dependencies
+
+# Update the packages and install the final dependencies
 RUN apk update && apk upgrade && \
     apk add bash
 
