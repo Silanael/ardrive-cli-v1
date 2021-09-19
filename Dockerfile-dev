@@ -13,8 +13,9 @@
 #     Dockerfile-plain  - Standalone release version for those familiar with Docker and ardrive-cli.
 #     Dockerfile-dev    - Development version pulled from https://github.com/ardriveapp/ardrive-cli
 #
-#     - The release version images are optimized for size and speed and are based on node-alpine.     
-#     - The development image is single-stage and based on node-slim (Debian).
+#     - The release images are optimized for size and speed and are based on node-alpine.     
+#     - The development image is single-stage and based on node:latest (Debian)
+#       and are set out to (hopefully) be compatible with future versions.
 #
 #
 #
@@ -45,7 +46,7 @@
 #       that doesn't exist, yet it doesn't properly quit after this.
 #
 
-FROM node:slim
+FROM node:latest
 
 
 LABEL description="ArDrive CLI - Dev image"                              \
@@ -61,8 +62,7 @@ LABEL description="ArDrive CLI - Dev image"                              \
 
 # Update the packages
 RUN apt-get update          && \
-    apt-get upgrade         && \
-    apt-get install git -y  && \
+    apt-get upgrade         && \    
     apt-get clean
     
 
@@ -76,4 +76,5 @@ WORKDIR /ardrive-cli
 RUN yarn
 
 
+# v1-way - expecting the next version to take parameters
 CMD ["yarn", "start"]

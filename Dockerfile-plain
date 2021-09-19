@@ -13,8 +13,9 @@
 #     Dockerfile-plain  - Standalone release version for those familiar with Docker and ardrive-cli.
 #     Dockerfile-dev    - Development version pulled from https://github.com/ardriveapp/ardrive-cli
 #
-#     - The release version images are optimized for size and speed and are based on node-alpine.     
-#     - The development image is single-stage and based on node-slim (Debian).
+#     - The release images are optimized for size and speed and are based on node-alpine.     
+#     - The development image is single-stage and based on node:latest (Debian)
+#       and are set out to (hopefully) be compatible with future versions.
 #
 #
 #
@@ -92,7 +93,6 @@ LABEL description="ArDrive CLI"                                             \
       com.silanael.version="2021-09-19_01"
 
 
-WORKDIR /ardrive-cli
 
 
 # Update the packages and install final dependencies
@@ -104,6 +104,9 @@ RUN apk update && apk upgrade && \
 COPY --from=builder /ardrive-cli ./ardrive-cli
 
 
-# Use this if the other one fails:
-# ENTRYPOINT ["yarn", "run", "ardrive-cli"]
-ENTRYPOINT ["/ardrive-cli/node_modules/.bin/ardrive-cli"]
+WORKDIR /ardrive-cli
+
+
+#ENTRYPOINT ["/ardrive-cli/node_modules/.bin/ardrive-cli"]
+ENTRYPOINT yarn run ardrive-cli 2>/dev/null
+

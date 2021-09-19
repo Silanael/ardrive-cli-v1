@@ -10,11 +10,12 @@
 # *** VARIATIONS ***
 #
 #     Dockerfile        - Release version with safety/helper scripts.
-#     Dockerfile-plain  - Standalone release version. For those familiar with Docker and ardrive-cli.
+#     Dockerfile-plain  - Standalone release version for those familiar with Docker and ardrive-cli.
 #     Dockerfile-dev    - Development version pulled from https://github.com/ardriveapp/ardrive-cli
 #
-#     - The release version images are optimized for size and speed and are based on node-alpine.     
-#     - The development image is single-stage and based on node-slim (Debian).
+#     - The release images are optimized for size and speed and are based on node-alpine.     
+#     - The development image is single-stage and based on node:latest (Debian)
+#       and are set out to (hopefully) be compatible with future versions.
 #
 #
 #
