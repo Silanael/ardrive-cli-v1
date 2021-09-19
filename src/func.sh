@@ -12,16 +12,18 @@ source /const.sh
 
 LaunchCLI () {
 
+    # Trap SIGINT so that it won't kill the script.
+    # ardrive-cli still terminates on it.
+    trap '' 2
+
     echo "Launching ardrive-cli... (CTRL+C to exit)"
     echo ""
+        
+    cd /ardrive-cli
+    yarn run ardrive-cli 2>/dev/null
 
-    # Try to run the binary,
-    # fallback to yarn start otherwise.
-    if [ "$binfile" == "" ] || ! $binfile
-    then             
-        cd /ardrive-cli
-        yarn start
-    fi    
+    # Untrap SIGINT
+    trap 2
 }
 
 

@@ -48,7 +48,7 @@ PostRunChecks () {
 
     echo ""
     echo "Checking for loose wallet backup files... (CTRL+C to abort)"
-    wallets_in_danger=$(find / -path "$walletdir" -prune -false -o -type f -name "ArDrive_Backup_*.json")
+    wallets_in_danger=$(find / -type f -name "ArDrive_Backup_*.json" -not -path "${walletdir}/*")
 
 
     if [ "$wallets_in_danger" != "" ]
