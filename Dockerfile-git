@@ -1,5 +1,5 @@
 # ArDrive CLI v1 docker image 
-# 2021-09-19_01          
+# 2021-09-20_01          
 #
 #                                                                 
 #     ArDrive CLI                    by  ArDrive Team  (ardrive.io)       
@@ -56,7 +56,7 @@ LABEL description="ArDrive CLI GIT"                                      \
       com.silanael.arweave="zPZe0p1Or5Kc0d7YhpT5kBC-JUPcDzUPJeMz2FdFiy4" \
       com.silanael.createdwith="nano, VS Code"                           \
       com.silanael.sys="Potato-01 MK3"                                   \                                
-      com.silanael.version="2021-09-19_01"
+      com.silanael.version="2021-09-20_01"
 
 
 

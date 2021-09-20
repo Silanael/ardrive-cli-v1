@@ -1,14 +1,38 @@
 # ArDrive CLI v1 Dockerfile
-- Dockerfile, shell scripts and documentation by [Silanael](http://www.silanael.com)
+
+
+## Credits
 - [ardrive-cli](https://github.com/ardriveapp/ardrive-cli) by the [ArDrive team](https://ardrive.io)
+- Dockerfiles, shell scripts and documentation by [Silanael](http://www.silanael.com)
+
+
+
+## Requirements
+- Docker or a compatible container runtime
+
+
+
+## Variations
+Filename        | Description
+----------------|--------------------------------------------------------------------
+Dockerfile      | Release version with safety/helper scripts
+Dockerfile-raw  | Raw release version for those familiar with Docker and ardrive-cli
+Dockerfile-git  | Development version from https://github.com/ardriveapp/ardrive-cli
+
+The release images are optimized for size and speed and are based on node-alpine.     
+The development image is single-stage and based on node:latest (Debian) created with future compatibility in mind.
+
 
 
 ## Pre-built images at
-- [DockerHub](https://hub.docker.com/repository/docker/silanael/ardrive-cli-v1) (x86-64, ARMv7/RPI2)
-- [ArDrive](https://app.ardrive.io/#/drives/a44482fd-592e-45fa-a08a-e526c31b87f1?name=Silanael) - [x86-64](https://app.ardrive.io/#/file/24d2bc79-60e2-42e8-aaec-c74d2d4b4813/view),
-  [ARMv7](https://app.ardrive.io/#/file/d59e8f78-f589-4be5-b5dc-984420b8bc27/view)
-- [Arweave - x86-64](https://arweave.net/J3DuBTV9GtTIeWSz28oJoaHt33LTgCCMQ1pBpyNYyso) (tar.gz, TXID: J3DuBTV9GtTIeWSz28oJoaHt33LTgCCMQ1pBpyNYyso)
-- [Arweave - ARMv7](https://arweave.net/aOrafXYWf1DBZ-Quf_NzHJlvN4yTStSykkvlvOXC7nw) (tar.gz, TXID: aOrafXYWf1DBZ-Quf_NzHJlvN4yTStSykkvlvOXC7nw)
+Location | Images | Info
+---------|--------|-----
+[DockerHub](https://hub.docker.com/repository/docker/silanael/ardrive-cli-v1)                 | x86-64, ARMv7/RPI2 |
+[ArDrive](https://app.ardrive.io/#/drives/a44482fd-592e-45fa-a08a-e526c31b87f1?name=Silanael) | [x86-64](https://app.ardrive.io/#/file/24d2bc79-60e2-42e8-aaec-c74d2d4b4813/view), [ARMv7](https://app.ardrive.io/#/file/d59e8f78-f589-4be5-b5dc-984420b8bc27/view) |
+Arweave | [x86-64](https://arweave.net/J3DuBTV9GtTIeWSz28oJoaHt33LTgCCMQ1pBpyNYyso)     | TXID: J3DuBTV9GtTIeWSz28oJoaHt33LTgCCMQ1pBpyNYyso (tar.gz)| 
+Arweave | [ARMv7/RPI2](https://arweave.net/aOrafXYWf1DBZ-Quf_NzHJlvN4yTStSykkvlvOXC7nw) | TXID: aOrafXYWf1DBZ-Quf_NzHJlvN4yTStSykkvlvOXC7nw (tar.gz)|
+
+
 
 ## An important notice and disclaimer
 This Dockerfile has mostly been created for the sake of historic preservation at the advent of more capable and (hopefully) bug-free **v2 CLI**.
@@ -17,8 +41,10 @@ ardrive-cli may be buggy and result in monetary loss, nor can I guarantee my wor
 or any of the files associated with it - **use at your own risk**
 
 
+
 ## What is this thing?
 This is a **Dockerfile** that fetches and builds **ardrive-cli v1** with some scripts I wrote for safety checks and ease of use.
+
 
 
 ## What is ardrive-cli?
@@ -29,6 +55,7 @@ yet the recommended way is to create it with an external tool such as the [Chrom
 inside the container may lead into loss of the wallet and the funds associated with it. **WARNING: UPLOADED FILES CANNOT BE DELETED FROM THE PERMAWEB!**
 
 
+
 ## What is ArDrive?
 **ArDrive** is a permaweb file storage service that provides a filesystem layer (**ArFS**) on top of **Arweave**, allowing easy upload and management of files.
 Upon uploading a file, a small fee (a tip) is charged in addition to the Arweave network transaction fees. Aside the CLI, the files can be managed with
@@ -36,18 +63,12 @@ a [web interface](https://github.com/ardriveapp/ardrive-web) at [app.ardrive.io]
 See [ardrive.io](https://www.ardrive.io) for more information.
 
 
+
 ## What is Arweave?
-**Arweave** is an immutable data storage system with the goal of long-term data preservation in a way that counters censorship and data loss that is the result of centralization.
-It does this by storing data inside the blocks of the **blockweave** (Arweave's equivalent of a blockchain) as opposed to storing it separately,
-this property allowing it to preserve the data for as long as miners and archivists remain incentivized to do so.
+**Arweave** is an immutable data storage system with the goal of long-term data preservation in a way that counters censorship and data loss that is the result of centralization. It seeks to do this by storing data in such a way that miners are incentivized to hold as much of it as possible for as long as possible.
 
 Storing data requires spending Arweave's native cryptocurrency, "**AR**", some of which is distributed to the miners over time as a form of accumulating interest.
 See [arweave.org](https://www.arweave.org) for more information.
-
-
-
-## Requirements
-- Docker or a compatible container runtime
 
 
 
@@ -61,23 +82,30 @@ See [arweave.org](https://www.arweave.org) for more information.
 
 
 ## How this container works
-The container uses the following mount locations:
-- `/data/db`        where .ardrive-cli.db is created at, containing wallet and state data.
-- `/data/sync`      to act as a sync directory for uploads and downloads.
-- `/data/wallets`   to allow the CLI to read and save wallet files.
+This container uses the following mount locations:
+
+Path in container | Description
+------------------|--------------------------------------------------------------------
+`/data/db`        | .ardrive-cli.db is created in here, storing wallet and state data
+`/data/sync`      | A sync directory for uploads and downloads
+`/data/wallets`   | Allows the CLI to read and save wallet files
 
 It is sufficient to mount an empty directory to `/data` - the directory structure will be created upon container start.
+
+
 
 ## First run
 To initialize **arweave-cli**, you will need to provide the following things:
 
-## A Login Name and an ArDrive Login Password
+
+### A Login Name and an ArDrive Login Password
 At the time of writing this, **ArDrive** does not have user accounts - the **Login Name** provided is used to
 find your drives and for creating a drive encryption key for private drives in conjuction with the wallet private key and **ArDrive Login Password*.
 **ardrive-cli** also uses the login info for local profile management.
 - Use your existing **Login Name** and **ArDrive Login Password** if possible.
 - Make sure to remember the login info - **ARDRIVE CANNOT RECOVER OR CHANGE YOUR PASSWORD!**
 - The password will be queried after a wallet has been created/provided.
+
 
 ### An Arweave-wallet - do one of the following
 - Use an existing wallet by placing the **wallet file** into your local `<workdir>/data/wallets` directory
@@ -89,18 +117,22 @@ find your drives and for creating a drive encryption key for private drives in c
   loss of control of the newly-created Arweave-address along with ALL FUNDS IN IT!**
 - A safer alternative is to create a wallet with an external tool (see **What is arweave-cli**).
 
+
 ### A sync directory
 - Provide `/data/sync` when asked for **ArDrive Sync Folder Path**
+
 
 ### Create a drive if you haven't got one already
 - Public drives are **forever accessible to everyone**
 - Private drives are encrypted with a key derived from your **wallet**, **Login Name* and **ArDrive Login Password**.
   See [ArDrive's wiki](https://ardrive.atlassian.net/wiki/spaces/help/overview) for technical details.
 
+
 ### When ardrive-cli has been initialized
 - You can now start adding files to your newly-created drive by placing them into the host sync folder (`<workdir>/data/sync` by default).
   **Consider VERY carefully what to upload - IT IS NOT POSSIBLE TO DELETE FILES FROM THE PERMAWEB!**
 - **ardrive-cli** will run in a loop, eventually picking up the new files and asking you for a confirmation for upload along with displaying an upload cost.
+
 
 ### After the first run
 After **ardrive-cli** has been initialized, the **wallet file** (.json) should be moved away as it is then saved to the internal database (located in `/data/db/.ardrive-cli.db`)
@@ -114,6 +146,7 @@ Run `docker run -it --rm silanael/ardrive-cli-v1 help` or `./run.sh --help` for 
 
 ## How to run
 NOTE: In order to run as a non-root user, **Docker-privileges** may be needed to be set up.
+
 
 ### With the included scripts
 
@@ -146,7 +179,7 @@ See `./run.sh --help` for information.
  
 #### Run
 - `docker run -it -v $(pwd)/data:/data silanael/ardrive-cli-v1:latest`
- 
+  
 #### Info on additional features
 - `docker run -it --rm silanael/ardrive-cli-v1:latest help`
  
@@ -155,6 +188,8 @@ See `./run.sh --help` for information.
 - `docker run -it [--rm] -v [DBDIR]:/data/db -v [SYNCDIR]:/data/sync -v [WALLETDIR]:/data/wallets <image>`
 - `docker run -it [--rm] -v <image> [help/info]`
 - `docker run -it [--rm] -v [DATADIR]:/data <image> [cli/nocheck/shell/resetdb]`
+
+
 
 ### Post-run
 - It is recommended to move your **wallet files** away from `data/wallets`. **Store them in a safe location where they won't be lost or compromised**.

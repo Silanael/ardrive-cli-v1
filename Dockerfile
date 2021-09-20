@@ -1,5 +1,5 @@
 # ArDrive CLI v1 docker image 
-# 2021-09-19_01          
+# 2021-09-20_01          
 #
 #                                                                 
 #     ArDrive CLI                    by  ArDrive Team  (ardrive.io)       
@@ -45,9 +45,6 @@
 #     - ardrive-cli throws an exception if it's given a wallet path
 #       that doesn't exist, yet it doesn't properly quit after this.
 #
-#     - The image launches the CLI by running /ardrive-cli/node_modules/.bin/ardrive-cli -
-#       if this at some point stops working, an alternative launch command is:
-#           yarn run ardrive-cli
 
 
 
@@ -93,7 +90,7 @@ LABEL description="ArDrive CLI v1 + support scripts"                        \
       com.silanael.sys="Potato-01 MK3"                                      \
       com.silanael.runcommand1="/ardrive-cli/node_modules/.bin/ardrive-cli" \
       com.silanael.runcommand2="yarn run ardrive-cli"                       \      
-      com.silanael.version="2021-09-19_01"
+      com.silanael.version="2021-09-20_01"
 
 
 
@@ -106,6 +103,7 @@ RUN apk update && apk upgrade && \
 # (docker-entrypoint.sh + info.txt)
 COPY --from=builder /ardrive-cli ./ardrive-cli
 COPY ./src/* /
+COPY ./README.md /
 
 
 # Create directory structure and set up dummy files that are

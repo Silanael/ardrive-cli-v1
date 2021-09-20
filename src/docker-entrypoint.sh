@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # ArDrive Docker image - docker-entrypoint.sh
-# Silanael 2021-09-19_01
+# Silanael 2021-09-20_01
 #
 # The execution of the container starts here.
 # Various parameters can be supplied as the run command.
@@ -16,7 +16,7 @@ arg="$1"
 
 # Greet
 echo "ArDrive CLI docker image"
-echo "Silanael 2021-09-19_01"
+echo "Silanael 2021-09-20_01"
 echo ""
 echo "Run \"docker -it --rm <image> help\" for info."
 echo ""
@@ -73,8 +73,8 @@ case $arg in
 
 
     info)
-        cat /info.txt
-        ;;
+        cat /README.md
+        ;& # Fallthrough intentional
 
 
     
