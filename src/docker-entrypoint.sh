@@ -74,6 +74,8 @@ case $arg in
 
     info)
         cat /README.md
+        echo ""
+        echo ""
         ;& # Fallthrough intentional
 
 
