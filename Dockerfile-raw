@@ -45,6 +45,9 @@
 #     - ardrive-cli throws an exception if it's given a wallet path
 #       that doesn't exist, yet it doesn't properly quit after this.
 #
+#     - The image launches the CLI by running /ardrive-cli/node_modules/.bin/ardrive-cli -
+#       if this at some point stops working, an alternative launch command is:
+#           yarn run ardrive-cli
 
 
 
@@ -62,7 +65,6 @@ RUN apk update && apk upgrade &&            \
     apk add make gcc g++ musl-dev python3
 
 
-# Install ardrive-cli
 WORKDIR /ardrive-cli
 RUN yarn add ardrive-cli
 RUN yarn cache clean --all
@@ -79,10 +81,8 @@ RUN yarn cache clean --all
 
 FROM node:current-alpine
 
-LABEL description="ArDrive CLI v1 + support scripts"                        \
-      author="Silanael"                                                     \
-      com.silanael.usage="docker run -it -v datadir:/data <image>"          \
-      com.silanael.info="docker run -it --rm <image> [help/info]"           \
+LABEL description="ArDrive CLI"                                             \
+      author="Silanael"                                                     \      
       com.silanael.url="silanael.com"                                       \
       com.silanael.e-mail="sila@silanael.com"                               \
       com.silanael.arweave="zPZe0p1Or5Kc0d7YhpT5kBC-JUPcDzUPJeMz2FdFiy4"    \
@@ -94,33 +94,20 @@ LABEL description="ArDrive CLI v1 + support scripts"                        \
 
 
 
-# Update the packages and install the final dependencies
+
+# Update the packages and install final dependencies
 RUN apk update && apk upgrade && \
     apk add bash
 
 
-# Copy the built app and other files needed by the image
-# (docker-entrypoint.sh + info.txt)
+# Copy the built app and documentation
 COPY --from=builder /ardrive-cli ./ardrive-cli
-COPY ./src/* /
 COPY ./README.md /
 
 
-# Create directory structure and set up dummy files that are
-# used to detect whether the important paths have been mounted.
-# /wallets only needs to be present for the first run,
-# /data/db and /data/sync should always be mounted.
-RUN mkdir /data;                                                 \
-    mkdir /data/db;       touch /data/db/.notmounted;            \
-    mkdir /data/sync;     touch /data/sync/.notmounted;          \
-    mkdir /data/wallets;  touch /data/wallets/.notmounted;       \    
-    ln -s /data/db /db;                                          \
-    ln -s /data/wallets /wallets;                                \
-    ln -s /data/sync /sync;                                      \
-    ln -s /data/db/.ardrive-cli.db /ardrive-cli/.ardrive-cli.db; 
-    # ^ This effectively relocates .ardrive-cli.db
-
-
 WORKDIR /ardrive-cli
-ENTRYPOINT ["/docker-entrypoint.sh"]
-CMD ["cli"]
+
+
+#ENTRYPOINT ["/ardrive-cli/node_modules/.bin/ardrive-cli"]
+ENTRYPOINT yarn run ardrive-cli 2>/dev/null
+
