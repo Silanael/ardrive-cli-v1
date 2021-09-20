@@ -237,7 +237,7 @@ PostRunChecks () {
                else
                    echo "Alright, fair enough."
                    echo "If you don't want to be pestered with my safety checks,"
-                   echo "run the container with command \"nochecks\"."
+                   echo "run the container with the command \"nochecks\"."
                    echo ""
                fi
                ;;
