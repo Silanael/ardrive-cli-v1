@@ -103,6 +103,7 @@ RUN apk update && apk upgrade && \
 # Copy the built app and documentation
 COPY --from=builder /ardrive-cli ./ardrive-cli
 COPY ./README.md /
+COPY ./Dockerfile-raw /
 
 
 WORKDIR /ardrive-cli

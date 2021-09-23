@@ -71,6 +71,11 @@ RUN apt-get update          && \
 RUN git clone --depth 1 https://github.com/ardriveapp/ardrive-cli.git
 
 
+# Copy README.md and the Dockerfile for reference if a pre-built image is pulled
+COPY ./README.md /
+COPY ./Dockerfile-raw /
+
+
 # Build the project
 WORKDIR /ardrive-cli
 RUN yarn

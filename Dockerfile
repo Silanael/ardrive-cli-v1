@@ -104,6 +104,7 @@ RUN apk update && apk upgrade && \
 COPY --from=builder /ardrive-cli ./ardrive-cli
 COPY ./src/* /
 COPY ./README.md /
+COPY ./Dockerfile /
 
 
 # Create directory structure and set up dummy files that are
