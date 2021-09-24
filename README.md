@@ -99,13 +99,15 @@ To initialize **arweave-cli**, you will need to provide the following things:
 
 
 ### A Login Name and an ArDrive Login Password
-At the time of writing this, **ArDrive** does not have user accounts - the **Login Name** provided is used to
-find your drives and for creating a drive encryption key for private drives in conjuction with the wallet private key and **ArDrive Login Password*.
-**ardrive-cli** also uses the login info for local profile management.
+At the time of writing this, **ArDrive** does not have user accounts - the **Login Name** is merely a label for the wallet used, acting
+as a profile name in the local database. As such, the login name is irrelevant and can be changed later on. 
+**ArDrive Login Password** is used together with the **Ardrive-wallet** to derive the private drive encryption key.
 - Use your existing **Login Name** and **ArDrive Login Password** if possible.
-- Make sure to remember the login info - **ARDRIVE CANNOT RECOVER OR CHANGE YOUR PASSWORD!**
+- Make sure to **use a strong password** and **remember it** - **THE PASSWORD CANNOT BE CHANGED OR RECOVERED, NOT EVEN BY ARDRIVE!**
 - The password will be queried after a wallet has been created/provided.
-
+- **Both the password and the wallet are required to access private drives!** Keep them safe!
+  **ardrive-cli** stores the wallets in its local database, make sure to backup either it (data/db/.ardrive-cli.db) or the **wallet-file** (.json) -
+  preferrably both!
 
 ### An Arweave-wallet - do one of the following
 - Use an existing wallet by placing the **wallet file** into your local `<workdir>/data/wallets` directory
@@ -124,7 +126,7 @@ find your drives and for creating a drive encryption key for private drives in c
 
 ### Create a drive if you haven't got one already
 - Public drives are **forever accessible to everyone**
-- Private drives are encrypted with a key derived from your **wallet**, **Login Name* and **ArDrive Login Password**.
+- Private drives are encrypted with a key derived from your **Arweave-wallet** and **ArDrive Login Password**.
   See [ArDrive's wiki](https://ardrive.atlassian.net/wiki/spaces/help/overview) for technical details.
 
 
