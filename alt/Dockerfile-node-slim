@@ -62,14 +62,18 @@ FROM node:slim AS builder
 LABEL description="ArDrive CLI builder image (can be removed)"
 
 
-# Update the packages and install dependencies.
-RUN apt update && apt upgrade && apt install -y python
+# Update the system
+RUN apt update && apt upgrade
 
+# Install the dependencies
+RUN apt install -y make gcc g++ python3
+
+# Clear the cache
+RUN apt clean
 
 # Install ardrive-cli
 WORKDIR /ardrive-cli
-RUN yarn add ardrive-cli
-RUN yarn cache clean --all
+RUN yarn add ardrive-cli --network-timeout 100000 # RPI2 is so slow that yarn thinks there's a network issue.
 
 
 
@@ -94,12 +98,12 @@ LABEL description="ArDrive CLI v1 + support scripts"                        \
       com.silanael.sys="Potato-01 MK3"                                      \
       com.silanael.runcommand1="/ardrive-cli/node_modules/.bin/ardrive-cli" \
       com.silanael.runcommand2="yarn run ardrive-cli"                       \      
-      com.silanael.version="2021-09-20_01"
+      com.silanael.version="2021-09-24_01"
 
 
 
 # Update the packages and install dependencies.
-RUN apt update && apt upgrade && apt install -y python
+RUN apt update && apt upgrade
 
 
 
@@ -108,7 +112,7 @@ RUN apt update && apt upgrade && apt install -y python
 COPY --from=builder /ardrive-cli ./ardrive-cli
 COPY ./src/* /
 COPY ./README.md /
-COPY ./Dockerfile /
+COPY ./alt/Dockerfile-node-slim /
 
 
 # Create directory structure and set up dummy files that are
