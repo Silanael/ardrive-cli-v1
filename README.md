@@ -101,7 +101,7 @@ To initialize **arweave-cli**, you will need to provide the following things:
 ### A Login Name and an ArDrive Login Password
 At the time of writing this, **ArDrive** does not have user accounts - the **Login Name** is merely a label for the wallet used, acting
 as a profile name in the local database. As such, the login name is irrelevant and can be changed later on. 
-**ArDrive Login Password** is used together with the **Ardrive-wallet** to derive the private drive encryption key.
+**ArDrive Login Password** is used together with the **Arweave-wallet** to derive the private drive encryption key.
 - Use your existing **Login Name** and **ArDrive Login Password** if possible.
 - Make sure to **use a strong password** and **remember it** - **THE PASSWORD CANNOT BE CHANGED OR RECOVERED, NOT EVEN BY ARDRIVE!**
 - The password will be queried after a wallet has been created/provided.
