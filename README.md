@@ -13,21 +13,16 @@
 
 
 ## Variations
-Filename              | Description
-----------------------|--------------------------------------------------------------------
-Dockerfile            | Release version with safety/helper scripts
-Dockerfile-raw        | Raw release version for those familiar with Docker and ardrive-cli
-Dockerfile-git        | Development version from https://github.com/ardriveapp/ardrive-cli
-Dockerfile-node-slim  | Release version based on node:slim (Debian) - works on Raspberry Pi
+Filename                  | Description
+--------------------------|--------------------------------------------------------------------
+Dockerfile                | Release version with safety/helper scripts
+Dockerfile-raw            | Raw release version for those familiar with Docker and ardrive-cli
+Dockerfile-git            | Development version from https://github.com/ardriveapp/ardrive-cli
+alt/Dockerfile-node-slim  | Release version based on node:slim (Debian) - works on Raspberry Pi
 
 The release images are optimized for size and speed and are based on node-alpine.     
 The development image is single-stage and based on node:latest (Debian) created with future compatibility in mind.
 
-
-## Alternative Dockerfiles
-Filename               | Description
------------------------|--------------------------------------------------------------------
-Dockerfile-node-slim   | Release version based on node:slim (Debian) - works on Raspberry Pi
 
 
 
@@ -86,7 +81,7 @@ See [arweave.org](https://www.arweave.org) for more information.
 - The last I checked, **ardrive-cli** would accept files larger than 2GB, yet throw an exception and post only metadata transaction.
 - **ardrive-cli** throws an exception when given a wallet path that doesn't exist, yet doesn't exit properly.
 - The regular Dockerfiles don't currently work on Raspberry Pi as the Alpine-images for it are broken (an issue related to libseccomp2).
-  Use opt/Dockerfile-node-slim.
+  Use alt/Dockerfile-node-slim.
 
 
 
@@ -180,12 +175,9 @@ See `./run.sh --help` for information.
 
 #### Build
 - `docker build -t silanael/ardrive-cli-v1:latest .`
- 
-#### Prepare
-- `mkdir data`
- 
+  
 #### If you have a wallet file
-- `mkdir data/wallets`
+- `mkdir -p data/wallets`
 - `cp <wallet.json> data/wallets/`
  
 #### Run
