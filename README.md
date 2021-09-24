@@ -13,14 +13,21 @@
 
 
 ## Variations
-Filename        | Description
-----------------|--------------------------------------------------------------------
-Dockerfile      | Release version with safety/helper scripts
-Dockerfile-raw  | Raw release version for those familiar with Docker and ardrive-cli
-Dockerfile-git  | Development version from https://github.com/ardriveapp/ardrive-cli
+Filename              | Description
+----------------------|--------------------------------------------------------------------
+Dockerfile            | Release version with safety/helper scripts
+Dockerfile-raw        | Raw release version for those familiar with Docker and ardrive-cli
+Dockerfile-git        | Development version from https://github.com/ardriveapp/ardrive-cli
+Dockerfile-node-slim  | Release version based on node:slim (Debian) - works on Raspberry Pi
 
 The release images are optimized for size and speed and are based on node-alpine.     
 The development image is single-stage and based on node:latest (Debian) created with future compatibility in mind.
+
+
+## Alternative Dockerfiles
+Filename               | Description
+-----------------------|--------------------------------------------------------------------
+Dockerfile-node-slim   | Release version based on node:slim (Debian) - works on Raspberry Pi
 
 
 
@@ -29,8 +36,8 @@ Location | Images | Info
 ---------|--------|-----
 [DockerHub](https://hub.docker.com/repository/docker/silanael/ardrive-cli-v1)                 | x86-64, ARMv7/RPI2 |
 [ArDrive](https://app.ardrive.io/#/drives/a44482fd-592e-45fa-a08a-e526c31b87f1?name=Silanael) | [x86-64](https://app.ardrive.io/#/file/24d2bc79-60e2-42e8-aaec-c74d2d4b4813/view), [ARMv7](https://app.ardrive.io/#/file/d59e8f78-f589-4be5-b5dc-984420b8bc27/view) |
-Arweave | [x86-64](https://arweave.net/J3DuBTV9GtTIeWSz28oJoaHt33LTgCCMQ1pBpyNYyso)     | TXID: J3DuBTV9GtTIeWSz28oJoaHt33LTgCCMQ1pBpyNYyso (tar.gz)| 
-Arweave | [ARMv7/RPI2](https://arweave.net/aOrafXYWf1DBZ-Quf_NzHJlvN4yTStSykkvlvOXC7nw) | TXID: aOrafXYWf1DBZ-Quf_NzHJlvN4yTStSykkvlvOXC7nw (tar.gz)|
+Arweave | [x86-64](https://arweave.net/J3DuBTV9GtTIeWSz28oJoaHt33LTgCCMQ1pBpyNYyso)           | TXID: J3DuBTV9GtTIeWSz28oJoaHt33LTgCCMQ1pBpyNYyso (tar.gz)| 
+Arweave | [ARMv7/RPI2](https://arweave.net/aOrafXYWf1DBZ-Quf_NzHJlvN4yTStSykkvlvOXC7nw)       | TXID: aOrafXYWf1DBZ-Quf_NzHJlvN4yTStSykkvlvOXC7nw (tar.gz)|
 
 
 
@@ -78,6 +85,8 @@ See [arweave.org](https://www.arweave.org) for more information.
   This is the primary reason I don't recommend the **v1 cli** for any serious use. If this happens, consult the [ArDrive team](https://ardrive.io).
 - The last I checked, **ardrive-cli** would accept files larger than 2GB, yet throw an exception and post only metadata transaction.
 - **ardrive-cli** throws an exception when given a wallet path that doesn't exist, yet doesn't exit properly.
+- The regular Dockerfiles don't currently work on Raspberry Pi as the Alpine-images for it are broken (an issue related to libseccomp2).
+  Use opt/Dockerfile-node-slim.
 
 
 
